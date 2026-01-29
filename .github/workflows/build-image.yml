@@ -1,3 +1,5 @@
+# Build and push kubectl-awscli image to GHCR:
+#   ghcr.io/kalpak44/kubectl-awscli:{latest,<IMAGE_VERSION>,<short_sha>}
 name: build-and-push
 
 on:
@@ -11,7 +13,7 @@ permissions:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }} # kalpak44/kubectl-awscli
+  IMAGE: ghcr.io/kalpak44/kubectl-awscli
 
 jobs:
   build:
@@ -21,31 +23,37 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Load versions.env
-        id: versions
+      # Load IMAGE_VERSION from versions.env
+      - name: Load version
+        id: ver
         shell: bash
         run: |
-          set -a
+          set -euo pipefail
           source versions.env
-          set +a
+          echo "IMAGE_VERSION=${IMAGE_VERSION}" >> "$GITHUB_OUTPUT"
 
-          echo "IMAGE_VERSION=$IMAGE_VERSION" >> $GITHUB_OUTPUT
-          echo "KUBECTL_VERSION=$KUBECTL_VERSION" >> $GITHUB_OUTPUT
-          echo "AWSCLI_VERSION=$AWSCLI_VERSION" >> $GITHUB_OUTPUT
+      # Short git sha for image tag
+      - name: Short sha
+        id: sha
+        shell: bash
+        run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
 
-      - name: Set up QEMU (multi-arch)
+      # Multi-arch support
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
-      - name: Set up Docker Buildx
+      - name: Set up Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Log in to GHCR
+      # Login to GHCR
+      - name: Login to GHCR
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Build and push: latest, IMAGE_VERSION, short SHA
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
@@ -53,11 +61,9 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          build-args: |
-            KUBECTL_VERSION=${{ steps.versions.outputs.KUBECTL_VERSION }}
-            AWSCLI_VERSION=${{ steps.versions.outputs.AWSCLI_VERSION }}
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.versions.outputs.IMAGE_VERSION }}
+            ${{ env.IMAGE }}:latest
+            ${{ env.IMAGE }}:${{ steps.ver.outputs.IMAGE_VERSION }}
+            ${{ env.IMAGE }}:${{ steps.sha.outputs.SHORT_SHA }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
