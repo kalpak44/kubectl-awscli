@@ -1,6 +1,8 @@
+# syntax=docker/dockerfile:1.7
 FROM alpine:3.20
 
 ARG TARGETARCH
+ARG TARGETVARIANT
 
 RUN apk add --no-cache \
       bash \
@@ -14,15 +16,9 @@ RUN apk add --no-cache \
 # Install latest stable kubectl
 RUN set -eux; \
     KVER="$(curl -fsSL https://dl.k8s.io/release/stable.txt)"; \
+    ARCH="${TARGETARCH}"; \
+    if [ "${TARGETARCH}" = "arm" ] && [ "${TARGETVARIANT}" = "v7" ]; then ARCH="arm"; fi; \
     curl -fsSL -o /usr/local/bin/kubectl \
-      "https://dl.k8s.io/release/${KVER}/bin/linux/${TARGETARCH}/kubectl"; \
+      "https://dl.k8s.io/release/${KVER}/bin/linux/${ARCH}/kubectl"; \
     chmod +x /usr/local/bin/kubectl; \
     kubectl version --client=true --output=yaml
-
-# Non-root user
-RUN addgroup -S app && adduser -S app -G app
-USER app:app
-WORKDIR /home/app
-
-ENTRYPOINT ["/bin/bash", "-lc"]
-CMD ["aws --version && kubectl version --client"]
