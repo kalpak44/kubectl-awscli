@@ -22,3 +22,11 @@ RUN set -eux; \
       "https://dl.k8s.io/release/${KVER}/bin/linux/${ARCH}/kubectl"; \
     chmod +x /usr/local/bin/kubectl; \
     kubectl version --client=true --output=yaml
+
+# Run as non-root by default (fixes: "runAsNonRoot and image will run as root")
+RUN addgroup -g 1000 -S app && adduser -u 1000 -S app -G app
+USER 1000:1000
+WORKDIR /home/app
+
+ENTRYPOINT ["/bin/bash", "-lc"]
+CMD ["aws --version && kubectl version --client"]
