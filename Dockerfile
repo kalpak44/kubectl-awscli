@@ -7,7 +7,7 @@
 # aws-cli is installed unversioned on purpose. It comes from the Alpine package
 # repository, where an exact `=version` pin breaks as soon as Alpine drops the old
 # package, so its version follows the base image tag below.
-FROM alpine:3.20
+FROM alpine:3.21
 
 ARG TARGETARCH
 ARG TARGETVARIANT

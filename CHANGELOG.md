@@ -4,6 +4,17 @@ The newest `## vX.Y.Z` heading below is the version this repository publishes �
 release workflow reads it from this file. Entries are written by the monthly release
 agent (`.github/workflows/release.yml`).
 
+## v0.3.0 — 2026-08-24
+
+| tool | from | to |
+|------|------|----|
+| alpine | 3.20 | 3.21 |
+
+The base image moves from Alpine 3.20 to 3.21, so aws-cli follows along and is now
+2.22.10 from the 3.21 package repository. kubectl stays pinned at v1.36.4, which is
+still the current stable release. Picking this image up pulls in the newer Alpine
+userspace, curl, and aws-cli updates.
+
 ## v0.2.0 — 2026-08-24
 
 | tool | from | to |
