@@ -4,6 +4,15 @@ The newest `## vX.Y.Z` heading below is the version this repository publishes �
 release workflow reads it from this file. Entries are written by the monthly release
 agent (`.github/workflows/release.yml`).
 
+## v0.5.0 — 2026-08-24
+
+| tool | from | to |
+|------|------|----|
+| alpine | 3.22 | 3.24 |
+| aws-cli | 2.27.25 | 2.34.63 |
+
+Security rebuild. The previous image scanned as 8 Critical and 36 High; this one scans as 2 Critical and 18 High. The release notes list what remains and why.
+
 ## v0.4.0 — 2026-08-24
 
 | tool | from | to |
