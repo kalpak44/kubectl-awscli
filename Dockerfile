@@ -1,8 +1,20 @@
 # syntax=docker/dockerfile:1.7
+
+# Pinned upstream versions. Maintained by the monthly release agent in
+# .github/workflows/release.yml — see CHANGELOG.md for the history. There is no
+# separate versions file: this Dockerfile is the source of truth.
+#
+# aws-cli is installed unversioned on purpose. It comes from the Alpine package
+# repository, where an exact `=version` pin breaks as soon as Alpine drops the old
+# package, so its version follows the base image tag below.
 FROM alpine:3.20
 
 ARG TARGETARCH
 ARG TARGETVARIANT
+
+# kubectl is fetched from dl.k8s.io, which keeps every released version, so it can
+# be pinned exactly.
+ARG KUBECTL_VERSION=v1.36.4
 
 RUN apk add --no-cache \
       bash \
@@ -13,13 +25,11 @@ RUN apk add --no-cache \
     && update-ca-certificates \
     && aws --version
 
-# Install latest stable kubectl
 RUN set -eux; \
-    KVER="$(curl -fsSL https://dl.k8s.io/release/stable.txt)"; \
     ARCH="${TARGETARCH}"; \
     if [ "${TARGETARCH}" = "arm" ] && [ "${TARGETVARIANT}" = "v7" ]; then ARCH="arm"; fi; \
     curl -fsSL -o /usr/local/bin/kubectl \
-      "https://dl.k8s.io/release/${KVER}/bin/linux/${ARCH}/kubectl"; \
+      "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/${ARCH}/kubectl"; \
     chmod +x /usr/local/bin/kubectl; \
     kubectl version --client=true --output=yaml
 
