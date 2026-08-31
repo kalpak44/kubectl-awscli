@@ -14,7 +14,7 @@ ARG TARGETVARIANT
 
 # kubectl is fetched from dl.k8s.io, which keeps every released version, so it can
 # be pinned exactly.
-ARG KUBECTL_VERSION=v1.36.4
+ARG KUBECTL_VERSION=v1.37.0
 
 RUN apk add --no-cache \
       bash \

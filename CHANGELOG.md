@@ -4,6 +4,36 @@ The newest `## vX.Y.Z` heading below is the version this repository publishes �
 release workflow reads it from this file. Entries are written by the monthly release
 agent (`.github/workflows/release.yml`).
 
+## v0.6.0 — 2026-08-31
+
+| tool | from | to |
+|------|------|----|
+| kubectl | v1.36.4 | v1.37.0 |
+
+kubectl moves up a minor release to v1.37.0, which now bundles Kustomize v5.8.1.
+Alpine stays on 3.24, so aws-cli remains the version that release ships
+(2.34.63) and nothing else moved.
+
+
+### Fixed
+
+- **stdlib** go1.26.5 — 13 High: CVE-2026-33818, CVE-2026-46600, CVE-2026-56853, CVE-2026-56859, CVE-2026-56862, CVE-2026-56864, CVE-2026-56865, GO-2026-5026, GO-2026-5942, GO-2026-5972, GO-2026-6088, GO-2026-6089, GO-2026-6090
+
+### Contents
+
+| tool | version |
+|------|---------|
+| alpine | 3.24.1 |
+| kubectl | v1.37.0 |
+| aws-cli | 2.34.63 |
+| bash | 5.3.9 |
+| curl | 8.21.0 |
+| jq | 1.8.1 |
+| python3 | 3.14.7 |
+| musl | 1.2.6-r2 |
+| openssl | 3.5.7-r0 |
+| ca-certificates | 20260611-r0 |
+
 ## v0.5.1 — 2026-08-25
 
 Rebuild against current Alpine packages. No pinned version changed.
