@@ -16,11 +16,14 @@ ARG TARGETVARIANT
 # be pinned exactly.
 ARG KUBECTL_VERSION=v1.37.0
 
+# openssl is listed explicitly so apk takes the current openssl from this Alpine
+# branch, which also moves the libcrypto3/libssl3 libraries baked into alpine:3.24.
 RUN apk add --no-cache \
       bash \
       ca-certificates \
       curl \
       jq \
+      openssl \
       aws-cli \
     && update-ca-certificates \
     && aws --version

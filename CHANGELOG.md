@@ -4,6 +4,34 @@ The newest `## vX.Y.Z` heading below is the version this repository publishes �
 release workflow reads it from this file. Entries are written by the monthly release
 agent (`.github/workflows/release.yml`).
 
+## v0.6.1 — 2026-09-14
+
+Security rebuild. The previous image scanned as 10 Critical and 38 High; this one scans as 2 Critical and 3 High. The release notes list what remains and why.
+
+### Fixed
+
+- **curl** 8.21.0-r0 — 2 Critical, 7 High: CVE-2026-13608, CVE-2026-18924, CVE-2026-19931, CVE-2026-80229, CVE-2026-80230, CVE-2026-80231, CVE-2026-80255, CVE-2026-82208, CVE-2026-82209
+- **jq** 1.8.1-r0 — 3 High: CVE-2026-32316, CVE-2026-40164, CVE-2026-49839
+- **libcrypto3** 3.5.7-r0 — 2 Critical, 7 High: CVE-2026-14456, CVE-2026-14457, CVE-2026-18798, CVE-2026-54874, CVE-2026-63072, CVE-2026-63073, CVE-2026-63075, CVE-2026-63076, CVE-2026-75803
+- **libcurl** 8.21.0-r0 — 2 Critical, 7 High: CVE-2026-13608, CVE-2026-18924, CVE-2026-19931, CVE-2026-80229, CVE-2026-80230, CVE-2026-80231, CVE-2026-80255, CVE-2026-82208, CVE-2026-82209
+- **libexpat** 2.8.3-r0 — 4 High: CVE-2026-66046, CVE-2026-76641, CVE-2026-76956, CVE-2026-76957
+- **libssl3** 3.5.7-r0 — 2 Critical, 7 High: CVE-2026-14456, CVE-2026-14457, CVE-2026-18798, CVE-2026-54874, CVE-2026-63072, CVE-2026-63073, CVE-2026-63075, CVE-2026-63076, CVE-2026-75803
+
+### Contents
+
+| tool | version |
+|------|---------|
+| alpine | 3.24.1 |
+| kubectl | v1.37.0 |
+| aws-cli | 2.34.63 |
+| bash | 5.3.9 |
+| curl | 8.22.0 |
+| jq | 1.8.2 |
+| python3 | 3.14.7 |
+| musl | 1.2.6-r2 |
+| openssl | 3.5.8-r0 |
+| ca-certificates | 20260611-r0 |
+
 ## v0.6.0 — 2026-08-31
 
 | tool | from | to |
