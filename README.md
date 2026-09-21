@@ -3,12 +3,16 @@
 A small container image that bundles:
 
 - **kubectl** (pinned version)
-- **AWS CLI** (pinned version)
+- **curl** and **jq**
 
 Built for Kubernetes automation jobs like:
-- refreshing AWS ECR pull secrets (`regcred`)
 - cluster maintenance scripts
 - CI/CD helper tasks
+
+The AWS CLI was removed in v0.7.0. It is the Python build on Alpine, and it brought a
+Python runtime and about sixty packages with it, which was the image's entire
+Critical/High vulnerability surface. Jobs that need it should install it themselves or
+use an image that ships it.
 
 ---
 
@@ -44,8 +48,8 @@ AWSCLI_VERSION=2.22.35
 ### Run locally
 
 ```bash
-docker run --rm ghcr.io/kalpak44/kubectl-awscli:latest aws --version
 docker run --rm ghcr.io/kalpak44/kubectl-awscli:latest kubectl version --client
+docker run --rm ghcr.io/kalpak44/kubectl-awscli:latest 'kubectl config view -o json | jq .kind'
 ```
 
 ### Kubernetes CronJob example
@@ -59,7 +63,6 @@ containers:
       - -lc
       - |
         set -euo pipefail
-        aws --version
         kubectl version --client
 ```
 

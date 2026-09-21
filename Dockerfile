@@ -4,9 +4,13 @@
 # .github/workflows/release.yml — see CHANGELOG.md for the history. There is no
 # separate versions file: this Dockerfile is the source of truth.
 #
-# aws-cli is installed unversioned on purpose. It comes from the Alpine package
-# repository, where an exact `=version` pin breaks as soon as Alpine drops the old
-# package, so its version follows the base image tag below.
+# The apk packages below are installed unversioned on purpose: an exact `=version`
+# pin breaks as soon as Alpine drops the old package, so their versions follow the
+# base image tag.
+#
+# aws-cli is deliberately absent. On Alpine it is the Python build, which pulled in a
+# Python runtime and around sixty packages — and those packages, not this image's own
+# tools, carried every Critical finding it had.
 FROM alpine:3.24
 
 ARG TARGETARCH
@@ -24,9 +28,8 @@ RUN apk add --no-cache \
       curl \
       jq \
       openssl \
-      aws-cli \
     && update-ca-certificates \
-    && aws --version
+    && jq --version
 
 RUN set -eux; \
     ARCH="${TARGETARCH}"; \
@@ -42,4 +45,4 @@ USER 1000:1000
 WORKDIR /home/app
 
 ENTRYPOINT ["/bin/bash", "-lc"]
-CMD ["aws --version && kubectl version --client"]
+CMD ["kubectl version --client"]
