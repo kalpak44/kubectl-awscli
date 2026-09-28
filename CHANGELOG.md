@@ -4,7 +4,16 @@ The newest `## vX.Y.Z` heading below is the version this repository publishes �
 release workflow reads it from this file. Entries are written by the monthly release
 agent (`.github/workflows/release.yml`).
 
-## vNEXT
+## v0.6.2 — 2026-09-28
+
+| tool | from | to |
+|------|------|----|
+| kubectl | v1.37.0 | v1.37.1 |
+
+kubectl moves from v1.37.0 to v1.37.1, the current stable release published at
+dl.k8s.io. This is a patch bump, so no new client features or flags are expected. The
+base image stays on Alpine 3.24, so the apk-installed tools (bash, ca-certificates,
+curl, jq, openssl) are unchanged and continue to track that branch.
 
 Removed the AWS CLI. On Alpine it is the Python build: it pulled in a Python runtime and
 around sixty packages, and every Critical and all but one High finding in the image came
@@ -12,6 +21,27 @@ from two of them, with no fixed version Alpine had packaged. The image now ships
 curl, jq and bash.
 
 Breaking for anything that called `aws` inside this image.
+
+
+### Fixed
+
+- **cryptography** 47.0.0 — 3 High: GHSA-537c-gmf6-5ccf, GHSA-g6cj-pr64-35w5, GHSA-jwv3-5hgf-82ww
+- **libexpat** 2.8.4-r0 — 1 High: CVE-2026-93990
+- **py3-cryptography** 47.0.0-r0 — 2 High: CVE-2026-69247, CVE-2026-69249
+- **py3-jmespath** 1.0.1-r6 — 2 Critical: CVE-2022-32511, CVE-2026-54133
+
+### Contents
+
+| tool | version |
+|------|---------|
+| alpine | 3.24.2 |
+| kubectl | v1.37.1 |
+| bash | 5.3.9 |
+| curl | 8.22.0 |
+| jq | 1.8.2 |
+| musl | 1.2.6-r2 |
+| openssl | 3.5.8-r0 |
+| ca-certificates | 20260909-r0 |
 
 ## v0.6.1 — 2026-09-14
 
