@@ -4,6 +4,30 @@ The newest `## vX.Y.Z` heading below is the version this repository publishes �
 release workflow reads it from this file. Entries are written by the monthly release
 agent (`.github/workflows/release.yml`).
 
+## v0.6.3 — 2026-10-19
+
+Security rebuild. The previous image scanned as 3 Critical and 27 High; this one scans as 3 Critical and 14 High. The release notes list what remains and why.
+
+### Fixed
+
+- **libcrypto3** 3.5.8-r0 — 4 High: CVE-2026-54873, CVE-2026-72897, CVE-2026-84782, CVE-2026-84784
+- **libssl3** 3.5.8-r0 — 4 High: CVE-2026-54873, CVE-2026-72897, CVE-2026-84782, CVE-2026-84784
+- **openssl** 3.5.8-r0 — 4 High: CVE-2026-54873, CVE-2026-72897, CVE-2026-84782, CVE-2026-84784
+- **zlib** 1.3.2-r0 — 1 High: CVE-2026-85091
+
+### Contents
+
+| tool | version |
+|------|---------|
+| alpine | 3.24.2 |
+| kubectl | v1.37.1 |
+| bash | 5.3.9 |
+| curl | 8.22.0 |
+| jq | 1.8.2 |
+| musl | 1.2.6-r2 |
+| openssl | 3.5.9-r0 |
+| ca-certificates | 20260909-r0 |
+
 ## v0.6.2 — 2026-09-28
 
 | tool | from | to |

@@ -22,12 +22,18 @@ ARG KUBECTL_VERSION=v1.37.1
 
 # openssl is listed explicitly so apk takes the current openssl from this Alpine
 # branch, which also moves the libcrypto3/libssl3 libraries baked into alpine:3.24.
-RUN apk add --no-cache \
+#
+# zlib cannot be dropped (apk-tools links libapk against it) and the alpine:3.24
+# rootfs still ships 1.3.2-r0 while v3.24/main carries 1.3.2-r1 (CVE-2026-85091).
+# --upgrade moves that one installed package to the current revision and nothing
+# else; it is scoped to the packages named here, not a whole-rootfs refresh.
+RUN apk add --no-cache --upgrade \
       bash \
       ca-certificates \
       curl \
       jq \
       openssl \
+      zlib \
     && update-ca-certificates \
     && jq --version
 
