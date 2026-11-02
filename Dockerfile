@@ -18,7 +18,7 @@ ARG TARGETVARIANT
 
 # kubectl is fetched from dl.k8s.io, which keeps every released version, so it can
 # be pinned exactly.
-ARG KUBECTL_VERSION=v1.37.1
+ARG KUBECTL_VERSION=v1.37.2
 
 # openssl is listed explicitly so apk takes the current openssl from this Alpine
 # branch, which also moves the libcrypto3/libssl3 libraries baked into alpine:3.24.

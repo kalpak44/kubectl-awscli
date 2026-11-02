@@ -1,8 +1,37 @@
 # Changelog
 
+## v0.6.4 — 2026-11-02
+
+| tool | from | to |
+|------|------|----|
+| kubectl | v1.37.1 | v1.37.2 |
+
+Updates the bundled kubectl client to upstream stable v1.37.2. Alpine remains on 3.24, so the apk-installed tools and base packages are unchanged.
+
 The newest `## vX.Y.Z` heading below is the version this repository publishes — the
 release workflow reads it from this file. Entries are written by the monthly release
 agent (`.github/workflows/release.yml`).
+
+
+### Fixed
+
+- **brotli-libs** 1.2.0-r1 — 1 Critical: CVE-2026-111497
+- **curl** 8.22.0-r0 — 7 Critical, 17 High: CVE-2026-107928, CVE-2026-107929, CVE-2026-86409, CVE-2026-86410, CVE-2026-86411, CVE-2026-86412, CVE-2026-86413, CVE-2026-86414, CVE-2026-86415, CVE-2026-87861, CVE-2026-87862, CVE-2026-87863, CVE-2026-87864, CVE-2026-87865, CVE-2026-87866, CVE-2026-92386, CVE-2026-92387, CVE-2026-92388, CVE-2026-92389, CVE-2026-92390, CVE-2026-92391, CVE-2026-92392, CVE-2026-94265, CVE-2026-94266
+- **libcurl** 8.22.0-r0 — 7 Critical, 17 High: CVE-2026-107928, CVE-2026-107929, CVE-2026-86409, CVE-2026-86410, CVE-2026-86411, CVE-2026-86412, CVE-2026-86413, CVE-2026-86414, CVE-2026-86415, CVE-2026-87861, CVE-2026-87862, CVE-2026-87863, CVE-2026-87864, CVE-2026-87865, CVE-2026-87866, CVE-2026-92386, CVE-2026-92387, CVE-2026-92388, CVE-2026-92389, CVE-2026-92390, CVE-2026-92391, CVE-2026-92392, CVE-2026-94265, CVE-2026-94266
+- **stdlib** go1.26.8 — 2 Critical, 9 High: GO-2026-6603, GO-2026-6604, GO-2026-6605, GO-2026-6607, GO-2026-6608, GO-2026-6609, GO-2026-6610, GO-2026-6611, GO-2026-6612, GO-2026-6613, GO-2026-6617
+
+### Contents
+
+| tool | version |
+|------|---------|
+| alpine | 3.24.3 |
+| kubectl | v1.37.2 |
+| bash | 5.3.9 |
+| curl | 8.23.0 |
+| jq | 1.8.2 |
+| musl | 1.2.6-r3 |
+| openssl | 3.5.9-r0 |
+| ca-certificates | 20261020-r0 |
 
 ## v0.6.3 — 2026-10-19
 
